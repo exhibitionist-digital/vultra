@@ -158,8 +158,8 @@ const app = {
           h('button', { onClick: up }, 'Up'),
           h('button', { onClick: down }, 'Down'),
           h('nav', { class: nav_classes.value }, [
-            h(RouterLink, { to: '/' }, 'Home'),
-            h(RouterLink, { to: '/about' }, 'About'),
+            h(RouterLink, { to: '/' }, () => 'Home'),
+            h(RouterLink, { to: '/about' }, () => 'About'),
           ]),
           h(RouterView),
         ]),
@@ -180,5 +180,5 @@ if (typeof document !== 'undefined') {
   ultraApp.use(router);
   ultraApp.provide('importmap', document.scripts.namedItem('importmap'));
   // @ts-ignore document
-  ultraApp.mount(document);
+  router.isReady().then(() => ultraApp.mount(document));
 }
