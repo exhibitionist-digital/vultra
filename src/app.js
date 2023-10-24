@@ -1,3 +1,5 @@
+// @ts-check
+
 globalThis.__VUE_OPTIONS_API__ = true;
 globalThis.__VUE_PROD_DEVTOOLS__ = false;
 
@@ -23,12 +25,13 @@ import {
 
 import css from 'fake-tag';
 
-// create array to populate with styles
-const styles = [];
+// create object to store styles
+const styles = {};
 
 const context = fstyle.context({
+  intern: true,
   insert: (x) => {
-    styles.push(x);
+    styles[x.class] = x.statements;
   },
 });
 
@@ -135,11 +138,7 @@ const app = {
             name: 'viewport',
             content: 'width=320, initial-scale=1',
           }),
-          h(
-            'style',
-            { name: 'fstyle' },
-            styles.map((x) => x.statements).join('\n')
-          ),
+          h('style', { name: 'fstyle' }, Object.values(styles).join('\n')),
         ]),
         h('body', { class: body_classes.value }, [
           h('h2', { class: demo_classes.value }, 'count: ' + count.value),
@@ -167,5 +166,6 @@ if (typeof document !== 'undefined') {
   });
   ultraApp.use(router);
   ultraApp.provide('importmap', document.scripts.namedItem('importmap'));
+  // @ts-ignore document
   router.isReady().then(() => ultraApp.mount(document));
 }

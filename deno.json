@@ -8,5 +8,8 @@
   },
   "tasks": {
     "dev": "deno run -A --watch server.js"
+  },
+  "compilerOptions": {
+    "lib": ["deno.ns", "dom", "dom.iterable", "dom.asynciterable"]
   }
 }

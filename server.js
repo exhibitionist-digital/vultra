@@ -1,3 +1,5 @@
+// @ts-check
+
 // required until Deno v2
 // https://github.com/denoland/deno/issues/13367
 import 'data:text/javascript,delete globalThis.window;';
