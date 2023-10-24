@@ -9,6 +9,7 @@
 * Typechecking with JSDOC, esm.sh + Deno LSP
 * `modulepreload` HTTP headers
 * Minify js + strip comments in client side code
+* Dynamic styling with [Fstyle](https://github.com/jamesdiacono/Fstyle)
 
 ---
 
