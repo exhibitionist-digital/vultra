@@ -1,5 +1,8 @@
 # vultra (vue ultra)
 
+> [!WARNING]  
+> This project does not need any build tools or compiling, you probably don't want to be here, how did you get here?
+
 * No build
 * No bundle
 * Isomorphic ESM
