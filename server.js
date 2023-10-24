@@ -3,11 +3,19 @@
 import 'data:text/javascript,delete globalThis.window;';
 
 import { renderToWebStream } from 'vue/server-renderer';
-import app, { router } from './src/app.js';
+import { createRouter, createMemoryHistory } from 'vue-router';
+import app, { routes } from './src/app.js';
 
 // use importmap from deno.json
 const config = await Deno.readTextFile('./deno.json');
 const importmap = { imports: JSON.parse(config).imports };
+
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
+});
+app.use(router);
+app.provide('importmap', JSON.stringify(importmap));
 
 Deno.serve(async (request) => {
   const url = new URL(request.url, 'http://localhost');
@@ -31,9 +39,9 @@ Deno.serve(async (request) => {
     return new Response(null, { status: 404 });
   }
 
-  app.provide('importmap', JSON.stringify(importmap));
-  router.push(new URL(request.url).pathname);
-  const stream = await router.isReady().then(() => renderToWebStream(app));
+  await router.push(new URL(request.url).pathname);
+
+  const stream = await renderToWebStream(app);
 
   return new Response(stream, {
     headers: { 'content-type': 'text/html; charset=utf-8' },

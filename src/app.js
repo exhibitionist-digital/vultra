@@ -17,8 +17,8 @@ import {
 import {
   createRouter,
   createWebHistory,
-  createMemoryHistory,
   RouterView,
+  RouterLink,
 } from 'vue-router';
 
 import css from 'fake-tag';
@@ -70,20 +70,27 @@ const body_styler = fstyle.css(function demo() {
     }`;
 });
 
-const routes = [
+const nav_styler = fstyle.css(function nav() {
+  return css`
+    .[] {
+      margin: 1em 0;
+    }
+
+    .[] a {
+      margin-right: 0.5em;
+    }`;
+});
+
+export const routes = [
   {
     path: '/',
     component: h('h1', 'HOME'),
   },
+  {
+    path: '/about',
+    component: h('h1', 'ABOUT'),
+  },
 ];
-
-export const router = createRouter({
-  history:
-    typeof document === 'undefined'
-      ? createMemoryHistory()
-      : createWebHistory(),
-  routes,
-});
 
 const ImportMapScript = (importmap) => {
   return h('script', {
@@ -108,6 +115,7 @@ const app = {
     const count = shallowRef(0);
     const body_classes = use_fstyle(() => body_styler());
     const demo_classes = use_fstyle(() => demo_styler());
+    const nav_classes = use_fstyle(() => nav_styler());
 
     function up() {
       count.value++;
@@ -137,6 +145,10 @@ const app = {
           h('h2', { class: demo_classes.value }, 'count: ' + count.value),
           h('button', { onClick: up }, 'Up'),
           h('button', { onClick: down }, 'Down'),
+          h('nav', { class: nav_classes.value }, [
+            h(RouterLink, { to: '/' }, 'Home'),
+            h(RouterLink, { to: '/about' }, 'About'),
+          ]),
           h(RouterView),
         ]),
       ]);
@@ -145,11 +157,15 @@ const app = {
 };
 
 const ultraApp = createSSRApp(app);
-ultraApp.use(router);
 
 export default ultraApp;
 
 if (typeof document !== 'undefined') {
+  const router = createRouter({
+    history: createWebHistory(),
+    routes,
+  });
+  ultraApp.use(router);
   ultraApp.provide('importmap', document.scripts.namedItem('importmap'));
   router.isReady().then(() => ultraApp.mount(document));
 }
