@@ -52,7 +52,11 @@ const demo_styler = fstyle.css(function demo() {
     .[] {
       color: pink;
       font-size: 200%;
-    }`;
+    }
+
+    @media (max-width: 600px) {.[] {
+        color: red;
+      }}`;
 });
 
 const body_styler = fstyle.css(function demo() {
@@ -116,6 +120,10 @@ const app = {
           h('title', 'Ultra SSR Vue Example'),
           ImportMapScript(importmap),
           HydrateScript(),
+          h('meta', {
+            name: 'viewport',
+            content: 'width=320, initial-scale=1',
+          }),
           h(
             'style',
             { name: 'fstyle' },
