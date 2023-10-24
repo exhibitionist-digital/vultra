@@ -144,7 +144,7 @@ const app = {
     return function render() {
       return h('html', { lang: 'en' }, [
         h('head', [
-          h('title', 'Ultra SSR Vue Example'),
+          h('title', 'VULTRA'),
           ImportMapScript(importmap),
           HydrateScript(),
           h('meta', {
