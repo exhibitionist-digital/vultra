@@ -3,6 +3,10 @@
 globalThis.__VUE_OPTIONS_API__ = true;
 globalThis.__VUE_PROD_DEVTOOLS__ = false;
 
+// modulepreload test
+import a from './lib/a.js';
+console.log({ a });
+
 import fstyle from 'fstyle';
 
 import {
