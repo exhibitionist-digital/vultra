@@ -25,18 +25,28 @@ import {
 
 import css from 'fake-tag';
 
-// create object to store styles
+/** @type {Object.<string, string>} */
 const styles = {};
 
 const context = fstyle.context({
   intern: true,
+  /**
+   * @param {object} x
+   * @param {string} x.class
+   * @param {string} x.statements
+   */
   insert: (x) => {
     styles[x.class] = x.statements;
   },
 });
 
+/**
+ * @param {any} styler
+ * @returns {any}
+ */
 function use_fstyle(styler) {
   const classes = ref([]);
+  /** @type {any} */
   let handle;
   watchEffect(function watcher() {
     const requireable = styler();
@@ -95,6 +105,9 @@ export const routes = [
   },
 ];
 
+/**
+ * @param {string} importmap
+ */
 const ImportMapScript = (importmap) => {
   return h('script', {
     name: 'importmap',
@@ -167,5 +180,5 @@ if (typeof document !== 'undefined') {
   ultraApp.use(router);
   ultraApp.provide('importmap', document.scripts.namedItem('importmap'));
   // @ts-ignore document
-  router.isReady().then(() => ultraApp.mount(document));
+  ultraApp.mount(document);
 }

@@ -8,6 +8,10 @@ import { renderToWebStream } from 'vue/server-renderer';
 import { createRouter, createMemoryHistory } from 'vue-router';
 import app, { routes } from './src/app.js';
 
+// minify js
+import minify from 'npm:@node-minify/core';
+import uglifyjs from 'npm:@node-minify/uglify-js';
+
 // use importmap from deno.json
 const config = await Deno.readTextFile('./deno.json');
 const importmap = { imports: JSON.parse(config).imports };
@@ -27,11 +31,16 @@ Deno.serve(async (request) => {
   const filePath = static_path + url.pathname;
   let file;
   try {
-    file = await Deno.readFile(filePath);
+    file = await Deno.readTextFile(filePath);
   } catch {
     // ignore
   }
   if (file) {
+    // @ts-ignore missing types from minify lib
+    file = await minify({
+      compressor: uglifyjs,
+      content: file,
+    });
     return new Response(file, {
       headers: { 'content-type': 'text/javascript' },
     });
