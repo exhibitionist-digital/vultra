@@ -2,12 +2,13 @@
   "imports": {
     "fake-tag": "https://esm.sh/fake-tag@5.0.0",
     "fstyle": "https://james.diacono.com.au/files/fstyle.js",
-    "vue": "https://esm.sh/vue@3.3.4?dev",
-    "vue/": "https://esm.sh/vue@3.3.4/",
-    "vue-router": "https://esm.sh/vue-router@4.2.5?dev"
+    "vue": "https://esm.sh/v133/vue@3.3.7/es2022/vue.mjs",
+    "vue/server-renderer": "https://esm.sh/v133/vue@3.3.7/es2022/server-renderer.js",
+    "vue-router": "https://esm.sh/v133/vue-router@4.2.5/X-ZS92dWU/es2022/vue-router.mjs"
   },
   "tasks": {
-    "dev": "deno run -A --watch server.js"
+    "dev": "deno run -A --watch server.js",
+    "start": "deno run -A server.js"
   },
   "compilerOptions": {
     "lib": ["deno.ns", "dom", "dom.iterable", "dom.asynciterable"]
