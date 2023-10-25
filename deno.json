@@ -1,6 +1,6 @@
 {
   "imports": {
-    "fake-tag": "https://esm.sh/fake-tag@5.0.0",
+    "fake-tag": "https://esm.sh/v133/fake-tag@5.0.0/es2022/fake-tag.mjs",
     "fstyle": "https://james.diacono.com.au/files/fstyle.js",
     "vue": "https://esm.sh/v133/vue@3.3.7/es2022/vue.mjs",
     "vue/server-renderer": "https://esm.sh/v133/vue@3.3.7/es2022/server-renderer.js",

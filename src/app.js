@@ -110,7 +110,7 @@ export const routes = [
 ];
 
 /**
- * @param {string} importmap
+ * @param {string} importmap - JSON stringified importmap
  */
 const ImportMapScript = (importmap) => {
   return h('script', {

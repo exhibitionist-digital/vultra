@@ -47,6 +47,7 @@ Deno.serve(async (request) => {
       compressor: uglifyjs,
       content: file,
     });
+    // build modulepreload headers
     const linkRelations = await resolveLinkRelations({
       appPath,
       url: filePath.replace(appPath, ''),
